@@ -1,0 +1,2 @@
+2024-01-23 11:28:38.4893 INFO Logger_Service.Data.LoggerRepository.InfoLogger string string string 
+2024-01-23 17:10:20.5287 INFO Logger_Service.Data.LoggerRepository.InfoLogger string string string 

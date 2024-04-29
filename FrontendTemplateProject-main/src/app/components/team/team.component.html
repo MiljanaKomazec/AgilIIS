@@ -1,0 +1,85 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Team</h4>
+            <button mat-icon-button color="white" (click)="openDialog(1)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>User</th>
+                  <th>Calendar</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let team of teams">
+                    <td>
+                      {{ team.teamId }}
+                    </td>
+                    <td>
+                      {{ team.teamName }}
+                    </td>
+                    <td>
+                      {{ team.teamDescription }}
+                    </td>
+                    <td>
+                      {{ team.userId }}
+                    </td>
+                    <td>
+                      {{ team.calendarId }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialog(
+                            2,
+                            team.teamId,
+                            team.teamName,
+                            team.teamDescription,
+                            team.userId,
+                            team.calendarId
+                          )
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialog(
+                            3,
+                            team.teamId,
+                            team.teamName,
+                            team.teamDescription,
+                            team.userId,
+                            team.calendarId
+                          )
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

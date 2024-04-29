@@ -1,0 +1,21 @@
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="text-primary">
+                <th>Comment Date</th>
+                <th>Comment Text</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let comment of comments">
+                    <td>
+                        {{ comment.dateComment | date : "yyyy-MM-dd HH:mm:ss"  }}
+                    </td>
+                    <td>
+                        {{ comment.textComment }}
+                    </td>
+         
+                </tr>
+            </tbody>
+       </table>
+    </div>
+</div>

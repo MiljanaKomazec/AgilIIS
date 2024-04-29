@@ -1,0 +1,16 @@
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-title {
+    margin-right: 10px; /* Opciono: dodajte margine između naslova i ikonice prema potrebi */
+  }
+
+  

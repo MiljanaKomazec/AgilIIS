@@ -1,0 +1,170 @@
+<div class="container" *ngIf="flag === 1 || flag === 2 || flag === 3">
+    <h3 mat-dialog-title *ngIf="flag == 1">Add sprint:</h3>
+    <h3 mat-dialog-title *ngIf="flag == 2">Update sprint: {{data.durationSprint}}</h3>
+    <h3 mat-dialog-title *ngIf="flag == 3">Delete sprint: {{data.durationSprint}}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Duration" name="Duration" [disabled]="flag==3" [(ngModel)]="data.durationSprint" required />
+        </mat-form-field>
+       </div>
+
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput [matDatepicker]="startOfSprint" placeholder="Start of sprint" name="Start of sprint" [disabled]="flag==3" [(ngModel)]="data.startOfSprint" required />
+            <mat-datepicker-toggle matSuffix [for]="startOfSprint"> </mat-datepicker-toggle>
+	        <mat-datepicker #startOfSprint></mat-datepicker>
+
+        </mat-form-field>
+       </div>
+
+       <div class="form">
+        <mat-form-field class="form-field">
+        <input matInput [matDatepicker]="endOfSprint" placeholder="End od sprint" name="End of sprint" [(ngModel)]="data.endOfSprint" 
+            [disabled]="flag==3" required/>
+            <mat-datepicker-toggle matSuffix [for]="endOfSprint"> </mat-datepicker-toggle>
+	        <mat-datepicker #endOfSprint></mat-datepicker>
+        </mat-form-field>
+       </div>
+    </form>
+
+    <div class="mat-dialog-actions form-field">
+        <button mat-raised-button color="primary" *ngIf="flag == 1" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="add()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 2" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Update</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 3" mat-dialog-close="1" (click)="delete()">Delete</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+    </div>
+</div>
+
+
+<div class="container" *ngIf="flag === 4 || flag === 5 || flag === 6">
+    <h3 mat-dialog-title *ngIf="flag == 4">Add phase of backlog:</h3>
+    <h3 mat-dialog-title *ngIf="flag == 5">Update phase of backlog item: {{dataPOBI.nameOfPOBI}}</h3>
+    <h3 mat-dialog-title *ngIf="flag == 6">Delete phase of backlog itme: {{dataPOBI.nameOfPOBI}}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Phase of backlog item name" name="Phase of backlog item name" [disabled]="flag==6" [(ngModel)]="dataPOBI.nameOfPOBI" required />
+        </mat-form-field>
+       </div>
+    </form>
+
+    <div class="mat-dialog-actions form-field">
+        <button mat-raised-button color="primary" *ngIf="flag == 4" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="addPOBI()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 5" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="updatePOBI()">Update</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 6" mat-dialog-close="1" (click)="deletePOBI()">Delete</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="flag === 7 || flag === 8 || flag === 9">
+    <h3 mat-dialog-title *ngIf="flag == 7">Add backlog:</h3>
+    <h3 mat-dialog-title *ngIf="flag == 8">Update item: {{dataBacklog.nameBacklog}}</h3>
+    <h3 mat-dialog-title *ngIf="flag == 9">Delete itme: {{dataBacklog.nameBacklog}}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Backlog name" name="Backlog name" [disabled]="flag==9" [(ngModel)]="dataBacklog.nameBacklog" required />
+        </mat-form-field>
+       </div>
+    </form>
+
+    <div class="mat-dialog-actions form-field">
+        <button mat-raised-button color="primary" *ngIf="flag == 7" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="addBacklog()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 8" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="updateBacklog()">Update</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 9" mat-dialog-close="1" (click)="deleteBacklog()">Delete</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="flag === 10 || flag === 11 || flag === 12">
+    <h3 mat-dialog-title *ngIf="flag == 10">Add backlog item:</h3>
+    <h3 mat-dialog-title *ngIf="flag == 11">Update backlog item: {{dataBI.timeAddedBacklogItem}}</h3>
+    <h3 mat-dialog-title *ngIf="flag == 12">Delete backlog item: {{dataBI.timeAddedBacklogItem}}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+
+        <div class="form">
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Backlog Item ID" name="Backlog Item ID" [disabled]="flag==12" [(ngModel)]="dataBI.backlogItemId" required />
+            </mat-form-field>
+           </div>
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Time Added" name="Time Added" [disabled]="flag==12" [(ngModel)]="dataBI.timeAddedBacklogItem" required />
+        </mat-form-field>
+       </div>
+
+        <div class="form">
+
+        <mat-select class="form-field" [compareWith]="compare" placeholder="Backlog" name="Backlog" [(ngModel)]="dataBI.backlog" [disabled]="flag==12" required>
+            <mat-option *ngFor="let backlog of backlogs" [value]="backlog">
+                {{backlog.nameBacklog}}
+            </mat-option>
+        </mat-select>
+
+        </div>
+
+        <div class="form">
+
+            <mat-select class="form-field" [compareWith]="compare" placeholder="Sprint" name="Sprint" [(ngModel)]="dataBI.sprint" [disabled]="flag==12" required>
+                <mat-option *ngFor="let sprint of sprints" [value]="sprint">
+                    {{sprint.durationSprint}}
+                </mat-option>
+            </mat-select>
+    
+        </div>
+
+        <div class="form">
+
+            <mat-select class="form-field" [compareWith]="compare" placeholder="Phase of backlog item" name="Phase of backlog item" [(ngModel)]="dataBI.pobi" [disabled]="flag==12" required>
+                <mat-option *ngFor="let pobi of pobis" [value]="pobi">
+                    {{pobi.nameOfPOBI}}
+                </mat-option>
+            </mat-select>
+    
+        </div>
+    </form>
+
+    <div class="mat-dialog-actions form-field">
+        <button mat-raised-button color="primary" *ngIf="flag == 10" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="addBI()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 11" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="updateBI()">Update</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 12" mat-dialog-close="1" (click)="deleteBI()">Delete</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="flag === 13">
+    <h3 mat-dialog-title *ngIf="flag == 13">Delete comment: {{dataC.textComment}}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Comment Text" name="Comment Text" [disabled]="flag==13" [(ngModel)]="dataC.textComment" required />
+        </mat-form-field>
+       </div>
+
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput [matDatepicker]="dateComment" placeholder="Comment date" name="Comment date" [disabled]="flag==13" [(ngModel)]="data.dateComment" required />
+            <mat-datepicker-toggle matSuffix [for]="dateComment"> </mat-datepicker-toggle>
+            <mat-datepicker #dateComment></mat-datepicker>
+
+        </mat-form-field>
+       </div>
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="User Story" name="User Story"  type="password" disabled [(ngModel)]="data.userStoryRootId" />
+        </mat-form-field>
+       </div>
+
+
+       
+    </form>
+
+    <div class="mat-dialog-actions form-field">
+        <button mat-raised-button color="primary" *ngIf="flag == 13" mat-dialog-close="1" (click)="deleteComment()">Delete</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+    </div>
+</div>
+
+
+

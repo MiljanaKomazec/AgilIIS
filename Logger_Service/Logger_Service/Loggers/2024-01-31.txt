@@ -1,0 +1,11 @@
+2024-01-31 19:34:42.6567 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetTeams *** Message:Team successfully restored 
+2024-01-31 19:35:14.3488 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetTeamById *** Message:Team with ID: 550e8400-e29b-41d4-a716-446655440001 successfully restored 
+2024-01-31 19:35:32.3169 WARN Logger_Service.Data.LoggerRepository.WarnLogger Service Name:User story Service *** Method:GetTeamById *** Message:Team with ID: 550e8400-e29b-41d4-a716-446655440005 not found. 
+2024-01-31 19:35:58.3090 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:CreateTeam *** Message:Team with values: {"TeamName":"string","TeamDescription":"string","UserId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","CalendarId":"3fa85f64-5717-4562-b3fc-2c963f66afa6"} successfully created 
+2024-01-31 19:36:06.7033 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetTeams *** Message:Team successfully restored 
+2024-01-31 19:36:49.2620 WARN Logger_Service.Data.LoggerRepository.WarnLogger Service Name:User story Service *** Method:UpdateTeam *** Message:Team with ID: 15527be0-6ce9-44d9-8dd7-08dc228b776a does not exist 
+2024-01-31 19:37:10.2316 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:UpdateTeam *** Message:Team with ID: 15527be0-6ce9-44d9-8dd7-08dc228b776b successfully updated. 
+2024-01-31 19:37:16.1345 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetTeams *** Message:Team successfully restored 
+2024-01-31 19:37:49.8301 WARN Logger_Service.Data.LoggerRepository.WarnLogger Service Name:User story Service *** Method:DeleteTeam *** Message:Team with ID: 15527be0-6ce9-44d9-8dd7-08dc228b776a does not exist 
+2024-01-31 19:37:56.7921 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:DeleteTeam *** Message:Team with ID: 15527be0-6ce9-44d9-8dd7-08dc228b776b successfully deleted. 
+2024-01-31 19:38:03.0519 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetTeams *** Message:Team successfully restored 

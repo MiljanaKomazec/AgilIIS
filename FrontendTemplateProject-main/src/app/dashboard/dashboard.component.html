@@ -1,0 +1,400 @@
+<style>
+    /* Stilovi za centriranje i promenu fonta */
+    .center-text {
+        text-align: center;
+    }
+
+    .custom-font {
+        font-family: 'cursive'; 
+    }
+
+    .bold-text {
+        font-weight: bold;
+    }
+</style>
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
+                                            <i class="material-icons">assignment</i> Backlog
+                                            <div class="ripple-container"></div>
+                                            <div>
+                                                <mat-select class="form-field" id="backlogDropdown" [compareWith]="compare" [(ngModel)]="selectedBacklog">
+                                                    <mat-option *ngFor="let backlog of backlogs" [value]="backlog" (click)="getUserStoriesByBacklogId(backlog.backlogId)">
+                                                        {{ backlog.nameBacklog }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                                            <i class="material-icons">autorenew</i> Sprint
+                                            <div class="ripple-container"></div>
+                                            <div>
+                                                <mat-select class="form-field" id="sprintDropdown" [compareWith]="compare" [(ngModel)]="selectedSprint" (change)="onSprintSelected()">
+                                                    <mat-option *ngFor="let sprint of sprints" [value]="sprint" (click)="getUserStoriesBySprintId(sprint.sprintId)">
+                                                        {{ sprint.startOfSprint }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="profile">
+                                <div>
+                                    <!-- Prikaz naziva odabranog backlog-a -->
+                                    <p *ngIf="selectedBacklog">Selected Backlog: {{ selectedBacklog.nameBacklog }}</p>
+                                    <h3>User stories for selected backlog</h3>
+                                </div>
+                                <table class="table" *ngIf="showUserStories">
+                                    <tbody>
+                                        <tr class="center-text custom-font bold-text">
+                                            <td>
+                                                <button mat-raised-button type="button" matTooltip="Add UserStory" 
+                                                                        (click)="openDialog(
+                                                                                            1, 
+                                                                                            userStoryRootId, 
+                                                                                            textUserStory, 
+                                                                                            partOfEpic, 
+                                                                                            prioritetizationParameter,  
+                                                                                            selectedBacklog.backlogId)" 
+                                                                        [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" >
+                                                    <i class="material-icons">add</i>
+                                                </button>
+                                            </td>
+                                            <td>USER STORY</td>
+                                            <td>Prioritetization parameter</td>
+                                            <td> Actions</td>
+                                        </tr>
+                                        <tr *ngFor="let story of stories" class="center-text" (click)="getFunctionalityByUserStory(story.userStoryRootId)" >
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="" [checked]="story.isChecked" 
+                                                                                    (click)="openDialogS(
+                                                                                                        story.userStoryRootId, 
+                                                                                                        story.textUserStory, 
+                                                                                                        story.partOfEpic, 
+                                                                                                        story.prioritetizationParameter, 
+                                                                                                        story.backlogId)">
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>{{ story.textUserStory }}</td>
+                                            <td>{{ story.prioritetizationParameter.valueForCustomerPP }}</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit UserStory" 
+                                                                    (click)="openDialog(
+                                                                                        2, 
+                                                                                        story.userStoryRootId, 
+                                                                                        story.textUserStory, 
+                                                                                        story.partOfEpic, 
+                                                                                        story.prioritetizationParameter, 
+                                                                                        story.backlogId)" 
+                                                        [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove UserStory" 
+                                                                    (click)="openDialog(
+                                                                                        3, 
+                                                                                        story.userStoryRootId, 
+                                                                                        story.textUserStory, 
+                                                                                        story.partOfEpic, 
+                                                                                        story.prioritetizationParameter, 
+                                                                                        story.backlogId)" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Comment UserStory" (click)="openDialogCommentUserStory(story.userStoryRootId)" [matTooltipPosition]="'above'" class="btn btn-info btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">comment</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Add Comment" (click)="openDialogCommentAdd(story.userStoryRootId)" [matTooltipPosition]="'above'" class="btn btn-info btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">add_comment</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="showFunctionalities">
+                                    <div class="card">
+                                        <div class="card-header card-header-warning">
+                                            <h4 class="card-title center-text custom-font bold-text">Functionalities</h4>
+                                        </div>
+                                        <div class="card-body table-responsive">
+                                            <div>
+                                                <h3>Functionalities for selected user story</h3>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class="text-warning center-text custom-font bold-text">
+                                                    <tr>
+                                                        <td>
+                                                            <button mat-raised-button type="button" class="center-text" matTooltip="Add Functionality" 
+                                                                                        (click)="openDialogFunctionality(
+                                                                                                                        1,
+                                                                                                                        functionalityId,
+                                                                                                                        textFunctionality,
+                                                                                                                        selectedUserStoryId)" 
+                                                                                        [matTooltipPosition]="'above'" class="btn btn-warning btn-link btn-sm btn-just-icon" >
+                                                                <i class="material-icons">add</i>
+                                                            </button>
+                                                        </td>
+                                                        <td>ID</td>
+                                                        <td>Description</td>
+                                                        <td>Actions</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let functionality of functionalities; let i = index" class="center-text" (click)="getTaskByFunctionality(functionality.functionalityId)">
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox" value="" [checked]="functionality.isChecked" 
+                                                                                                    (click)="openDialogSprintFunctionality(
+                                                                                                                        functionality.functionalityId, 
+                                                                                                                        functionality.textFunctionality, 
+                                                                                                                        functionality.userStoryRoot)">
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ i + 1 + '.'}}</td>
+                                                        <td>{{ functionality.textFunctionality }}</td>
+                                                        <td class="td-actions text-right">
+                                                            <button mat-raised-button type="button" matTooltip="Edit Functionality" 
+                                                                                            (click)="openDialogFunctionality(
+                                                                                                                            2, 
+                                                                                                                            functionality.functionalityId, 
+                                                                                                                            functionality.textFunctionality, 
+                                                                                                                            functionality.userStoryRootId,
+                                                                                                                            functionality.userStoryRoot)" 
+                                                                    [matTooltipPosition]="'above'" class="btn btn-warning btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">edit</i>
+                                                            </button>
+                                                            <button mat-raised-button type="button" matTooltip="Remove Functionality" 
+                                                                                                (click)="openDialogFunctionality(
+                                                                                                                                3, 
+                                                                                                                                functionality.functionalityId, 
+                                                                                                                                functionality.textFunctionality,
+                                                                                                                                functionality.userStoryRootId, 
+                                                                                                                                functionality.userStoryRoot)" 
+                                                                    [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="showTasks">
+                                    <div class="card">
+                                        <div class="card-header card-header-success">
+                                            <h4 class="card-title center-text custom-font bold-text">Tasks</h4>
+                                        </div>
+                                        <div class="card-body table-responsive">
+                                            <div>
+                                                <h3>Tasks for selected functionality</h3>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class="text-success center-text bold-text">
+                                                    <tr>
+                                                        <td>
+                                                            <button mat-raised-button type="button" matTooltip="Add Task" 
+                                                                                    (click)="openDialogTask(
+                                                                                                                    1,
+                                                                                                                    taskId,
+                                                                                                                    textTask,
+                                                                                                                    functionality)" 
+                                                                                    [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon" >
+                                                                <i class="material-icons">add</i>
+                                                            </button>
+                                                        </td>
+                                                        <td>ID</td>
+                                                        <td>Description</td>
+                                                        <td>Actions</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let task of tasks; let i = index" class="center-text">
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox" value="" [checked]="task.isChecked" 
+                                                                                                (click)="openDialogSprintTask(
+                                                                                                                            task.taskId, 
+                                                                                                                            task.textTask, 
+                                                                                                                            task.functionality
+                                                                                                                            )">
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ i + 1 + '.'}}</td>
+                                                        <td>{{ task.textTask }}</td>
+                                                        <td class="td-actions text-right">
+                                                            <button mat-raised-button type="button" matTooltip="Edit Task" 
+                                                                                        (click)="openDialogTask(
+                                                                                                                2, 
+                                                                                                                task.taskId, 
+                                                                                                                task.textTask, 
+                                                                                                                task.functionalityId,
+                                                                                                                task.functionality)" 
+                                                                    [matTooltipPosition]="'above'" class="btn btn-success btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">edit</i>
+                                                            </button>
+                                                            <button mat-raised-button type="button" matTooltip="Remove Task" 
+                                                                                        (click)="openDialogTask(
+                                                                                                                3, 
+                                                                                                                task.taskId, 
+                                                                                                                task.textTask, 
+                                                                                                                task.functionalityId,
+                                                                                                                task.functionality)" 
+                                                                    [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="messages">
+                                <div *ngIf="selectedSprint">
+                                    <p>Sprint Duration: {{ selectedSprint.durationSprint }}</p>
+                                    <p>Start of sprint: {{ selectedSprint.startOfSprint | date: 'yyyy-MM-dd HH:mm:ss' }}</p>
+                                    <p>End of sprint: {{ selectedSprint.endOfSprint | date: 'yyyy-MM-dd HH:mm:ss' }}</p>
+                                </div>
+                                <table class="table" *ngIf="showUserStoriesSprint">
+                                    <tbody>
+                                        <tr class="center-text custom-font bold-text">
+                                            
+                                            <td>USER STORY</td>
+                                            <td>Prioritetization parameter</td>
+                                            <td> Actions</td>
+                                        </tr>
+                                        <tr *ngFor="let story of stories" class="center-text" (click)="getFunctionalityByUserStory(story.userStoryRootId)" >
+                                            <td>{{ story.textUserStory }}</td>
+                                            <td>{{ story.prioritetizationParameter.valueForCustomerPP }}</td>
+                                            <td class="td-actions text-right">
+                                                <button mat-raised-button type="button" matTooltip="Edit UserStory" 
+                                                                            (click)="openDialog(
+                                                                                                2, 
+                                                                                                story.userStoryRootId, 
+                                                                                                story.textUserStory, 
+                                                                                                story.partOfEpic, 
+                                                                                                story.prioritetizationParameter, 
+                                                                                                story.backlogId)" 
+                                                        [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Remove UserStory" 
+                                                                            (click)="openDialog(
+                                                                                                3, 
+                                                                                                story.userStoryRootId, 
+                                                                                                story.textUserStory, 
+                                                                                                story.partOfEpic, 
+                                                                                                story.prioritetizationParameter , 
+                                                                                                story.backlogId)" 
+                                                        [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">close</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Comment UserStory" 
+                                                                            (click)="openDialogCommentUserStory(story.userStoryRootId)" [matTooltipPosition]="'above'" class="btn btn-info btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">comment</i>
+                                                </button>
+                                                <button mat-raised-button type="button" matTooltip="Add Comment" 
+                                                                            (click)="openDialogCommentAdd(story.userStoryRootId)" [matTooltipPosition]="'above'" class="btn btn-info btn-link btn-sm btn-just-icon">
+                                                    <i class="material-icons">add_comment</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="showFunctionalitiesSprint || showFunctionalities">
+                                    <div class="card">
+                                        <div class="card-header card-header-warning">
+                                            <h4 class="card-title center-text custom-font bold-text">Functionalities</h4>
+                                        </div>
+                                        <div class="card-body table-responsive">
+                                            <div>
+                                                <h3>Functionalities for selected user story</h3>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class="text-warning center-text custom-font bold-text">
+                                                    <tr>
+                                                        <td>ID</td>
+                                                        <td>Description</td>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let functionality of functionalities; let i = index" class="center-text" (click)="getTaskByFunctionality(functionality.functionalityId)">
+                                                        <td>{{ i + 1 + '.'}}</td>
+                                                        <td>{{ functionality.textFunctionality }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="showTasks">
+                                    <div class="card">
+                                        <div class="card-header card-header-success">
+                                            <h4 class="card-title center-text custom-font bold-text">Tasks</h4>
+                                        </div>
+                                        <div class="card-body table-responsive">
+                                            <div>
+                                                <h3>Tasks for selected functionality</h3>
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead class="text-success center-text bold-text">
+                                                    <tr>
+                                                        <td>ID</td>
+                                                        <td>Description</td>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let task of tasks; let i = index" class="center-text">
+                                                        
+                                                        <td>{{ i + 1 + '.'}}</td>
+                                                        <td>{{ task.textTask }}</td>
+                                                        
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

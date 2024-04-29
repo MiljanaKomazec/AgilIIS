@@ -1,0 +1,251 @@
+<div class="container" *ngIf="flag === 1 || flag === 2 || flag === 3">
+    <h3 mat-dialog-title *ngIf="flag == 1">Add calendar:</h3>
+    <h3 mat-dialog-title *ngIf="flag == 2">Update calendar: {{ data.calendarName }}</h3>
+    <h3 mat-dialog-title *ngIf="flag == 3">Delete calendar: {{ data.calendarName }}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div class="form">
+        <mat-form-field class="form-field">
+          <input
+            matInput
+            placeholder="Calendar Name"
+            name="calendarName"
+            [disabled]="flag == 3"
+            [(ngModel)]="data.calendarName"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field class="form-field">
+          <input
+            matInput
+            placeholder="Number of Days"
+            name="numberOfDaysCalendar"
+            [disabled]="flag == 3"
+            [(ngModel)]="data.numberOfDaysCalendar"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field class="form-field">
+          <input
+            matInput
+            placeholder="Year Calendar"
+            name="yearCalendar"
+            [disabled]="flag == 3"
+            [(ngModel)]="data.yearCalendar"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="form">
+        <mat-form-field class="form-field">
+          <input
+            matInput
+            placeholder="Month Calendar"
+            name="monthCalendar"
+            [disabled]="flag == 3"
+            [(ngModel)]="data.monthCalendar"
+            required
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  
+    <div class="mat-dialog-actions form-field">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="flag == 1"
+        type="submit"
+        mat-dialog-close="1"
+        [disabled]="!formControl.valid"
+        (click)="add()"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="flag == 2"
+        type="submit"
+        mat-dialog-close="1"
+        [disabled]="!formControl.valid"
+        (click)="update()"
+      >
+        Update
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="flag == 3"
+        mat-dialog-close="1"
+        (click)="delete()"
+      >
+        Delete
+      </button>
+      <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+    </div>
+  </div>
+ <div class="container" *ngIf="flag === 4 || flag === 5 || flag === 6">
+    <h3 mat-dialog-title *ngIf="flag == 4">Add event:</h3>
+    <h3 mat-dialog-title *ngIf="flag == 5">Update event: {{dataEvent.eventName}}</h3>
+    <h3 mat-dialog-title *ngIf="flag == 6">Delete event: {{dataEvent.eventName}}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Event Name" name="eventName" [disabled]="flag==6" [(ngModel)]="dataEvent.eventName" required />
+        </mat-form-field>
+       </div>
+
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput [matDatepicker]="eventDate" placeholder="Date" name="eventDate" [disabled]="flag==6" [(ngModel)]="dataEvent.eventDate" required />
+            <mat-datepicker-toggle matSuffix [for]="eventDate"> </mat-datepicker-toggle>
+	        <mat-datepicker #eventDate></mat-datepicker>
+
+        </mat-form-field>
+       </div>
+
+       <div class="form">
+        <mat-form-field class="form-field">
+        <input matInput [matDatepicker]="eventTime" placeholder="Event Time" name="eventTIme" [(ngModel)]="dataEvent.eventTime" 
+            [disabled]="flag==6" required/>
+            <mat-datepicker-toggle matSuffix [for]="eventTime"> </mat-datepicker-toggle>
+	        <mat-datepicker #eventTime></mat-datepicker>
+        </mat-form-field>
+       </div>
+
+       <div class="form">
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Event Description" name="eventDescription" [disabled]="flag==6" [(ngModel)]="dataEvent.eventDescription" required />
+        </mat-form-field>
+       </div>
+
+       <div class="form">
+        <mat-form-field class="form-field">
+          <mat-select
+            [compareWith]="compareK"
+            placeholder="Event Type"
+            name="eventType"
+            [(ngModel)]="dataEvent.eventType"
+            [disabled]="flag == 6"
+            required
+          >
+            <mat-option *ngFor="let eventType of eventTypes" [value]="eventType">
+              {{ eventType.eventTypeName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field class="form-field">
+          <mat-select
+            [compareWith]="compareK"
+            placeholder="Calendar"
+            name="calendar"
+            [(ngModel)]="dataEvent.calendar"
+            [disabled]="flag == 6"
+            required
+          >
+            <mat-option *ngFor="let calendar of calendars" [value]="calendar">
+              {{ calendar.calendarName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </form>
+    <div class="mat-dialog-actions form-field">
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="flag == 4"
+        type="submit"
+        mat-dialog-close="1"
+        [disabled]="!formControl.valid"
+        (click)="addEvent()"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="flag == 5"
+        type="submit"
+        mat-dialog-close="1"
+        [disabled]="!formControl.valid"
+        (click)="updateEvent()"
+      >
+        Update
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="flag == 6"
+        mat-dialog-close="1"
+        (click)="deleteEvent()"
+      >
+        Delete
+      </button>
+      <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+  </div>
+ </div>
+ <div class="container" *ngIf="flag === 7 || flag === 8 || flag === 9">
+  <h3 mat-dialog-title *ngIf="flag == 7">Add eventType:</h3>
+  <h3 mat-dialog-title *ngIf="flag == 8">Update eventType: {{ dataEventType.eventTypeName }}</h3>
+  <h3 mat-dialog-title *ngIf="flag == 9">Delete eventType: {{ dataEventType.eventTypeName }}</h3>
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Event Type Name"
+          name="eventTypeName"
+          [disabled]="flag == 9"
+          [(ngModel)]="dataEventType.eventTypeName"
+          required
+        />
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="mat-dialog-actions form-field">
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="flag == 7"
+      type="submit"
+      mat-dialog-close="1"
+      [disabled]="!formControl.valid"
+      (click)="addEventType()"
+    >
+      Save
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="flag == 8"
+      type="submit"
+      mat-dialog-close="1"
+      [disabled]="!formControl.valid"
+      (click)="updateEventType()"
+    >
+      Update
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="flag == 9"
+      mat-dialog-close="1"
+      (click)="deleteEventType()"
+    >
+      Delete
+    </button>
+    <button mat-raised-button color="warn" (click)="cancel()">Cancle</button>
+  </div>
+</div>
+
+  

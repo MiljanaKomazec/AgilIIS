@@ -1,0 +1,211 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Calendar</h4>
+            <button mat-icon-button color="white" (click)="openDialog(1)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Calendar Name</th>
+                  <th>Number of Days</th>
+                  <th>Year</th>
+                  <th>Months</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let calendar of calendars">
+                    <td>
+                      {{ calendar.calendarId }}
+                    </td>
+                    <td>
+                      {{ calendar.calendarName }}
+                    </td>
+                    <td>
+                      {{ calendar.numberOfDaysCalendar }}
+                    </td>
+                    <td>
+                      {{ calendar.yearCalendar }}
+                    </td>
+                    <td>
+                      {{ calendar.monthCalendar }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialog(
+                            2,
+                            calendar.calendarId,
+                            calendar.calendarName,
+                            calendar.numberOfDaysCalendar,
+                            calendar.yearCalendar,
+                            calendar.monthCalendar
+                          )
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialog(
+                            3,
+                            calendar.calendarId,
+                            calendar.calendarName,
+                            calendar.numberOfDaysCalendar ,
+                            calendar.yearCalendar,
+                            calendar.monthCalendar
+                          )
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">EventType</h4>
+            <button mat-icon-button color="white" (click)="openDialogEventType(7)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Event Type Name</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let eventType of eventTypes">
+                    <td>
+                      {{ eventType.eventTypeId }}
+                    </td>
+                    <td>
+                      {{ eventType.eventTypeName }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogEventType(8, eventType.eventTypeId, eventType.eventTypeName)
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogEventType(9, eventType.eventTypeId, eventType.eventTypeName)
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Event</h4>
+            <button mat-icon-button color="white" (click)="openDialogEvent(4)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Event name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Description</th>
+                  <th>EventType</th>
+                  <th>Calendar</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let event of events">
+                    <td>
+                      {{ event.eventId }}
+                    </td>
+                    <td>
+                      {{ event.eventName }}
+                    </td>
+                    <td>
+                      {{ event.eventDate | date : "yyyy-MM-dd" }}
+                    </td>
+                    <td>
+                      {{ event.eventTime | date : "HH:mm:ss" }}
+                    </td>
+                    <td>
+                      {{ event.eventDescription }}
+                    </td>
+                    <td>
+                      {{ event.eventTypeId }}
+                    </td>
+                    <td>
+                      {{ event.calendarId }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogEvent(5, event.eventId, event.eventName, event.eventDate, event.eventTime, event.eventDescription, event.eventType,event.calendar )
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogEvent(6, event.eventId, event.eventName, event.eventDate, event.eventTime, event.eventDescription, event.eventType,event.calendar )
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

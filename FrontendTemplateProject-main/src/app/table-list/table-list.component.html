@@ -1,0 +1,327 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Sprint</h4>
+            <button mat-icon-button color="white" (click)="openDialog(1)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Duration</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let sprint of sprints">
+                    <td>
+                      {{ sprint.sprintId }}
+                    </td>
+                    <td>
+                      {{ sprint.durationSprint }}
+                    </td>
+                    <td>
+                      {{ sprint.startOfSprint | date : "yyyy-MM-dd HH:mm:ss" }}
+                    </td>
+                    <td>
+                      {{ sprint.endOfSprint | date : "yyyy-MM-dd HH:mm:ss" }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialog(
+                            2,
+                            sprint.sprintId,
+                            sprint.durationSprint,
+                            sprint.startOfSprint,
+                            sprint.endOfSprint
+                          )
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialog(
+                            3,
+                            sprint.sprintId,
+                            sprint.durationSprint,
+                            sprint.startOfSprint,
+                            sprint.endOfSprint
+                          )
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Phase of Backlog Item</h4>
+            <button mat-icon-button color="white" (click)="openDialogPOBI(4)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let pobi of pobis">
+                    <td>
+                      {{ pobi.pobiId }}
+                    </td>
+                    <td>
+                      {{ pobi.nameOfPOBI }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogPOBI(5, pobi.pobiId, pobi.nameOfPOBI)
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogPOBI(6, pobi.pobiId, pobi.nameOfPOBI)
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Backlog</h4>
+            <button
+              mat-icon-button
+              color="white"
+              (click)="openDialogBacklog(7)"
+            >
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let backlog of backlogs">
+                    <td>
+                      {{ backlog.backlogId }}
+                    </td>
+                    <td>
+                      {{ backlog.nameBacklog }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogBacklog(
+                            8,
+                            backlog.backlogId,
+                            backlog.nameBacklog
+                          )
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogBacklog(
+                            9,
+                            backlog.backlogId,
+                            backlog.nameBacklog
+                          )
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Backlog Item</h4>
+            <button mat-icon-button color="white" (click)="openDialogBI(10)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Time Added Backlog Item</th>
+                  <th>Backlog</th>
+                  <th>Sprint</th>
+                  <th>Phase of Backlog Item</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let backlogItem of backlogItems">
+                    <td>
+                      {{ backlogItem.backlogItemId }}
+                    </td>
+                    <td>
+                      {{ backlogItem.timeAddedBacklogItem }}
+                    </td>
+                    <td>
+                      {{ backlogItem.backlog.nameBacklog }}
+                    </td>
+                    <td>
+                      {{ backlogItem.sprint.durationSprint }}
+                    </td>
+                    <td>
+                      {{ backlogItem.pobi.nameOfPOBI }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogBI(
+                            11,
+                            backlogItem.backlogItemId,
+                            backlogItem.timeAddedBacklogItem,
+                            backlogItem.backlog,
+                            backlogItem.sprint,
+                            backlogItem.pobi
+                          )
+                        "
+                      >
+                        <i class="material-icons">create</i>
+                      </button>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogBI(
+                            12,
+                            backlogItem.backlogItemId,
+                            backlogItem.timeAddedBacklogItem,
+                            backlogItem.backlog,
+                            backlogItem.sprint,
+                            backlogItem.pobi
+                          )
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Comment</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Date Comment</th>
+                  <th>Text Comment</th>
+                  <th>Action</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz task -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let comment of comments">
+                    <td>
+                      {{ comment.commentId }}
+                    </td>
+                    <td>
+                      {{ comment.dateComment }}
+                    </td>
+                    <td>
+                      {{ comment.textComment }}
+                    </td>
+                    <td>
+                      <button
+                        mat-icon-button
+                        color="white"
+                        (click)="
+                          openDialogC(
+                            13,
+                            comment.commentId,
+                            comment.dateComment,
+                            comment.textComment,
+                            comment.userStoryRootId
+                          )
+                        "
+                      >
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

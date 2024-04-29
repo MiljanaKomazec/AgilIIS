@@ -1,0 +1,21 @@
+<div class="container">
+    <h3 mat-dialog-title>Add Functionality to Sprint:</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+
+        <div class="form">
+
+            <mat-select class="form-field" [compareWith]="compare" placeholder="Sprint:" name="Sprint" [(ngModel)]="data.sprintId" required>
+                <mat-option *ngFor="let sprint of sprints" [value]="sprint.sprintId">
+                    {{sprint.startOfSprint}}
+                </mat-option>
+            </mat-select>
+    
+        </div>
+        
+    </form>
+
+    <div class="mat-dialog-actions form-field">
+        <button mat-raised-button color="primary" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Save</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </div>
+</div>

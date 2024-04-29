@@ -1,0 +1,78 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Users</h4>
+            <button mat-icon-button color="white" (click)="openDialog(1)">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Surname</th>
+                  <th>Email</th>
+                  <th>Team</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                  <!-- tr je tag kojim se definisu redovi tabele - koristimo ngFor za iteriranje kroz niz users -->
+                  <!-- td je tag kojim se definise svako pojedinacno polje -->
+                  <tr *ngFor="let user of users">
+                    <td>{{ user.idUser }}</td>
+                    <td>{{ user.nameUser }}</td>
+                    <td>{{ user.surnameUser }}</td>
+                    <td>{{ user.emailUser }}</td>
+                    <td>{{ user.teamId }}</td>
+                    <td>{{ user.nameRole }}</td>
+                    <td>
+                      <!-- Ovde dodajte funkcionalnost za otvaranje dijaloga ili druge akcije -->
+                      <!-- Na primer, ako želite dugme za izmenu korisnika -->
+                      <button mat-icon-button color="white" type="button"  (click)="
+                      openDialog(
+                        2,
+                        user.idUser,
+                        user.nameUser,
+                        user.surnameUser,
+                        user.emailUser,
+                        user.teamId,
+                        user.nameRole
+                      )
+                    ">
+                        <i class="material-icons">create</i>
+                      </button>
+                      <!-- I dugme za brisanje korisnika -->
+                      <button mat-icon-button color="white" type="button" (click)="
+                      openDialog(
+                        3,
+                        user.idUser,
+                        user.nameUser,
+                        user.surnameUser,
+                        user.emailUser,
+                        user.teamId,
+                        user.nameRole
+                      )
+                    ">
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

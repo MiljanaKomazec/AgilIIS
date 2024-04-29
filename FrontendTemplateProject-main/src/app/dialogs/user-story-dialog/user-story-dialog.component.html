@@ -1,0 +1,46 @@
+<div class="container" *ngIf="flag === 1 || flag === 2 || flag === 3">
+    <h3 mat-dialog-title *ngIf="flag == 1">ADD USER STORY:</h3>
+    <h3 mat-dialog-title *ngIf="flag == 2">UPDATE USER STORY: {{data.textUserStory}}</h3>
+    <h3 mat-dialog-title *ngIf="flag == 3">DELETE USER STORY: {{data.textUserStory}}</h3>
+    <form class="mat-dialog-content" #formControl="ngForm">
+
+        <div class="form">
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Text user story" name="TextUS" [disabled]="flag==3" [(ngModel)]="data.textUserStory" required />
+            </mat-form-field>
+        </div>
+  
+        <div class="form">
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Part of epic" name="Part of epic" [disabled]="flag==3" [(ngModel)]="data.partOfEpic" required />
+            </mat-form-field>
+        </div>
+  
+        <div class="form">
+            <mat-form-field class="form-field">
+                <mat-label>Prioritization Parameter</mat-label>
+                <mat-select [compareWith]="compare" placeholder="Select Prioritization Parameter" name="PrioritizationParameter" [disabled]="flag==3" [(ngModel)]="this.data.prioritetizationParameter" required>
+                    <mat-option *ngFor="let parameter of prioritizationParameters" [value]="parameter">
+                        {{ parameter.valueForCustomerPP }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Backlog ID" name="BacklogId" disabled [(ngModel)]="data.backlogId" required />
+            </mat-form-field>
+        </div>
+        
+        
+    </form>
+  
+    <div class="mat-dialog-actions form-field">
+        <button mat-raised-button color="primary" *ngIf="flag == 1" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="add()">Save</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 2" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Update</button>
+        <button mat-raised-button color="primary" *ngIf="flag == 3" mat-dialog-close="1" (click)="delete()">Delete</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+  

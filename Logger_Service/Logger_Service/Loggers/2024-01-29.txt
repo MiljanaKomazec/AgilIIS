@@ -1,0 +1,8 @@
+2024-01-29 10:12:00.9285 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetAllFunctionality *** Message:Functonalities successfully restored 
+2024-01-29 10:12:21.2685 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetFunctionalityById *** Message:Functionality with ID: 28b2a55a-0f35-41b8-aca2-83a49479369f successfully restored 
+2024-01-29 10:14:37.4554 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetAllParameterPrioritetization *** Message:Parameter prioritetization successfully restored 
+2024-01-29 10:14:46.3577 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetAllUserStory *** Message:User stories successfully restored 
+2024-01-29 10:40:06.5738 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetBacklog *** Message:Backlogs successfuly restored. 
+2024-01-29 10:40:19.7001 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetBacklogItem *** Message:Backlog items successfuly restored. 
+2024-01-29 10:40:39.5449 WARN Logger_Service.Data.LoggerRepository.WarnLogger Service Name:User story Service *** Method:GetBacklogItemById *** Message:Backlog Item with id not found 
+2024-01-29 10:40:45.1157 INFO Logger_Service.Data.LoggerRepository.InfoLogger Service Name:User story Service *** Method:GetBacklogItemById *** Message:Backlog item successfuly restored. 
